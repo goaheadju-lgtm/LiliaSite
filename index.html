@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English with Lily | Репетитор английского языка</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #06b6d4;
+            --accent: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gradient: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.875rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--dark);
+            position: relative;
+            font-weight: 700;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--gradient);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            font-weight: 800;
+        }
+
+        .hero-content h1 span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .hero-text {
+            font-size: 1.125rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .hero-features {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .feature-tag {
+            background: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--primary);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-tag i {
+            color: var(--secondary);
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            object-fit: cover;
+            height: 500px;
+        }
+
+        .floating-card {
+            position: absolute;
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .floating-card.card-1 {
+            bottom: 20px;
+            left: -20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .floating-card.card-2 {
+            top: 20px;
+            right: -20px;
+            animation: float 3s ease-in-out infinite 1.5s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Programs Section */
+        .programs {
+            background: white;
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .program-card {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 20px;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .program-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.1);
+        }
+
+        .program-age {
+            display: inline-block;
+            background: var(--gradient);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .program-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .program-desc {
+            color: var(--gray);
+        }
+
+        /* Formats & Pricing */
+        .formats, .pricing {
+            background: var(--light);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .price-card {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .price-card.featured {
+            border: 2px solid var(--primary);
+            transform: scale(1.05);
+        }
+
+        .price-card.featured::before {
+            content: 'Популярное';
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: var(--accent);
+            color: white;
+            padding: 0.25rem 3rem;
+            transform: rotate(45deg);
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .price-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .price-card.featured:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
+        .price-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .price-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-duration {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .price-amount {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .price-period {
+            color: var(--gray);
+            font-size: 1.125rem;
+        }
+
+        /* FAQ Section */
+        .faq {
+            background: white;
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 1rem;
+            border-radius: 15px;
+            overflow: hidden;
+            background: var(--light);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1.125rem;
+            transition: all 0.3s;
+        }
+
+        .faq-question:hover {
+            color: var(--primary);
+        }
+
+        .faq-question i {
+            transition: transform 0.3s;
+            color: var(--primary);
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s;
+            color: var(--gray);
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            max-height: 500px;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .contact .section-title {
+            color: white;
+        }
+
+        .contact .section-title::after {
+            background: var(--secondary);
+        }
+
+        .contact-subtitle {
+            font-size: 1.25rem;
+            color: #94a3b8;
+            margin-bottom: 3rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        .contact-item {
+            background: rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            transition: all 0.3s;
+        }
+
+        .contact-item:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-5px);
+        }
+
+        .contact-item i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .contact-item h3 {
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-item p, .contact-item a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 1.25rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .contact-item a:hover {
+            color: var(--secondary);
+        }
+
+        /* Footer */
+        footer {
+            background: #0f172a;
+            color: #64748b;
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.875rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-features {
+                justify-content: center;
+            }
+
+            .hero-image {
+                order: -1;
+            }
+
+            .hero-image img {
+                height: 300px;
+            }
+
+            .floating-card {
+                display: none;
+            }
+
+            section {
+                padding: 4rem 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .price-card.featured {
+                transform: none;
+            }
+
+            .price-card.featured:hover {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">English with Lily</div>
+            <ul class="nav-links">
+                <li><a href="#about">Обо мне</a></li>
+                <li><a href="#programs">Программы</a></li>
+                <li><a href="#formats">Форматы</a></li>
+                <li><a href="#pricing">Стоимость</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section (About) -->
+    <section class="hero" id="about">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1><span>English</span> with Lily</h1>
+                <span class="hero-subtitle">Привет! Меня зовут Лилия Нямма</span>
+                <p class="hero-text">
+                    С 2013 года я помогаю школьникам и взрослым полюбить английский язык, преодолеть языковой барьер и достичь поставленных целей.
+                </p>
+                <div class="hero-features">
+                    <div class="feature-tag">
+                        <i class="fas fa-award"></i>
+                        Опыт 10+ лет
+                    </div>
+                    <div class="feature-tag">
+                        <i class="fas fa-users"></i>
+                        Группы и индивидуально
+                    </div>
+                    <div class="feature-tag">
+                        <i class="fas fa-laptop"></i>
+                        Онлайн формат
+                    </div>
+                </div>
+                <a href="#contact" class="btn btn-primary">Записаться</a>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=600&h=700&fit=crop" alt="Лилия Нямма - репетитор английского">
+                <div class="floating-card card-1">
+                    <i class="fas fa-star" style="color: var(--accent);"></i>
+                    <div>
+                        <div style="font-weight: 700;">500+ учеников</div>
+                        <div style="font-size: 0.875rem; color: var(--gray);">Успешно сдали экзамены</div>
+                    </div>
+                </div>
+                <div class="floating-card card-2">
+                    <i class="fas fa-heart" style="color: #ef4444;"></i>
+                    <div>
+                        <div style="font-weight: 700;">Люблю свою работу</div>
+                        <div style="font-size: 0.875rem; color: var(--gray);">11 лет опыта</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section class="programs" id="programs">
+        <div class="container">
+            <h2 class="section-title">Программы обучения</h2>
+            <div class="programs-grid">
+                <div class="program-card">
+                    <span class="program-age">6-7 лет</span>
+                    <h3 class="program-title">Academy Stars Starter</h3>
+                    <p class="program-desc">Обучение чтению, базовая лексика и грамматика в игровой форме</p>
+                </div>
+                <div class="program-card">
+                    <span class="program-age">7-10 лет</span>
+                    <h3 class="program-title">Academy Stars 1-4</h3>
+                    <p class="program-desc">Комплексное развитие всех навыков: чтение, письмо, аудирование, говорение</p>
+                </div>
+                <div class="program-card">
+                    <span class="program-age">11-12 лет</span>
+                    <h3 class="program-title">Gateway to the World A2-B1</h3>
+                    <p class="program-desc">Углубленное изучение грамматики, расширение словарного запаса</p>
+                </div>
+                <div class="program-card">
+                    <span class="program-age">13-15 лет</span>
+                    <h3 class="program-title">Gateway to the World B2</h3>
+                    <p class="program-desc">Подготовка к ОГЭ, развитие навыков для свободного общения</p>
+                </div>
+                <div class="program-card">
+                    <span class="program-age">16-17 лет</span>
+                    <h3 class="program-title">Gateway to the World B2-C1</h3>
+                    <p class="program-desc">Подготовка к ЕГЭ, академический английский для поступления в ВУЗ</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formats Section -->
+    <section class="formats" id="formats">
+        <div class="container">
+            <h2 class="section-title">Форматы занятий</h2>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <div class="price-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="price-title">Индивидуально</h3>
+                    <p class="price-duration">Персональный подход к каждому ученику</p>
+                    <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0;">
+                        <div style="font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem;">Длительность:</div>
+                        <div style="color: var(--gray);">45 минут / 60 минут</div>
+                    </div>
+                </div>
+                <div class="price-card featured">
+                    <div class="price-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="price-title">Мини-группа</h3>
+                    <p class="price-duration">3–4 человека. Эффективно и выгодно</p>
+                    <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0;">
+                        <div style="font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem;">Длительность:</div>
+                        <div style="color: var(--gray);">45 минут / 60 минут</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title">Стоимость занятий</h2>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <div class="price-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="price-title">Индивидуально</h3>
+                    <p class="price-duration">45 минут</p>
+                    <div class="price-amount">1 000 ₽</div>
+                    <div class="price-period">за занятие</div>
+                </div>
+                <div class="price-card featured">
+                    <div class="price-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="price-title">Мини-группа</h3>
+                    <p class="price-duration">3–4 человека, 45 минут</p>
+                    <div class="price-amount">600 ₽</div>
+                    <div class="price-period">за занятие</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <h2 class="section-title">Частые вопросы</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Можно ли перенести занятие?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Конечно, я понимаю, что обстоятельства бывают разными. Вы можете перенести урок без потери оплаты, если предупредите меня минимум за 2 часа до начала.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Как происходит оплата?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Мы работаем по абонементам (блоки по 4 или 8 занятий). Это помогает планировать расписание на месяц вперед и гарантирует, что ваше время останется за вами.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Нужно ли покупать учебники?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Обычно мы используем цифровые версии современных британских учебников — я предоставляю все необходимые ссылки. Иногда могут понадобиться рабочие тетради, но это мы обсудим на первой встрече.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Запишитесь на пробный урок</h2>
+            <p class="contact-subtitle">Познакомимся, определим цели и уровень и подберём программу</p>
+            
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <i class="fab fa-telegram"></i>
+                    <h3>Telegram</h3>
+                    <a href="https://t.me/lilia_nyamma" target="_blank">@lilia_nyamma</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <h3>Телефон</h3>
+                    <a href="tel:+79084787645">+7 (908) 478-76-45</a>
+                </div>
+            </div>
+
+            <a href="https://t.me/lilia_nyamma" target="_blank" class="btn btn-primary" style="font-size: 1.125rem; padding: 1rem 3rem;">
+                <i class="fab fa-telegram" style="margin-right: 0.5rem;"></i>
+                Написать в Telegram
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 English with Lily. Все права защищены.</p>
+    </footer>
+
+    <script>
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                const isActive = item.classList.contains('active');
+                
+                // Close all items
+                document.querySelectorAll('.faq-item').forEach(faq => {
+                    faq.classList.remove('active');
+                });
+                
+                // Open clicked item if it wasn't active
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add shadow to nav on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            } else {
+                nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.05)';
+            }
+        });
+    </script>
+</body>
+</html>
