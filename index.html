@@ -111,16 +111,26 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
         }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--primary);
-            border: 2px solid var(--primary);
+        
+        .btn-spin {
+            background: var(--accent);
+            color: white;
+            font-size: 1.25rem;
+            padding: 1rem 3rem;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+            margin-top: 2rem;
+        }
+        
+        .btn-spin:hover {
+            background: #d97706;
+            transform: translateY(-2px);
         }
 
-        .btn-outline:hover {
-            background: var(--primary);
-            color: white;
+        .btn-spin:disabled {
+            background: var(--gray);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
 
         /* Sections */
@@ -410,9 +420,126 @@
             font-size: 1.125rem;
         }
 
+        /* Gamification Section */
+        .gamification {
+            background: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .gamification::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(245, 158, 11, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .slot-machine {
+            background: white;
+            padding: 3rem;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+            border: 4px solid var(--light);
+            position: relative;
+            z-index: 10;
+        }
+
+        .slots-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            background: var(--dark);
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .slot-reel {
+            width: 80px;
+            height: 100px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .slot-reel span {
+            display: block;
+            transition: transform 0.1s;
+        }
+
+        .slot-reel.spinning span {
+            animation: blurScroll 0.2s infinite linear;
+        }
+
+        @keyframes blurScroll {
+            0% { transform: translateY(-20px); filter: blur(2px); opacity: 0.5; }
+            50% { transform: translateY(20px); filter: blur(2px); opacity: 0.5; }
+            100% { transform: translateY(-20px); filter: blur(2px); opacity: 0.5; }
+        }
+
+        .prize-display {
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .prize-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.5s;
+        }
+        
+        .prize-title.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .prize-desc {
+            color: var(--gray);
+            font-size: 1rem;
+            opacity: 0;
+            transition: all 0.5s 0.2s;
+        }
+        
+        .prize-desc.show {
+            opacity: 1;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(720deg); }
+        }
+
         /* FAQ Section */
         .faq {
-            background: white;
+            background: var(--light);
         }
 
         .faq-list {
@@ -424,7 +551,8 @@
             margin-bottom: 1rem;
             border-radius: 15px;
             overflow: hidden;
-            background: var(--light);
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
         }
 
         .faq-question {
@@ -587,6 +715,12 @@
             .price-card.featured:hover {
                 transform: translateY(-10px);
             }
+            
+            .slot-reel {
+                width: 60px;
+                height: 80px;
+                font-size: 2.5rem;
+            }
         }
     </style>
 </head>
@@ -601,6 +735,7 @@
                 <li><a href="#programs">Программы</a></li>
                 <li><a href="#formats">Форматы</a></li>
                 <li><a href="#pricing">Стоимость</a></li>
+                <li><a href="#bonus">Бонус</a></li>
                 <li><a href="#faq">FAQ</a></li>
                 <li><a href="#contact">Контакты</a></li>
             </ul>
@@ -747,6 +882,33 @@
         </div>
     </section>
 
+    <!-- Gamification Section -->
+    <section class="gamification" id="bonus">
+        <div class="container">
+            <h2 class="section-title">Испытай удачу!</h2>
+            <p style="text-align: center; color: var(--gray); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                Крути слот-машину и получи гарантированный бонус для начала обучения. Доступно только один раз!
+            </p>
+            
+            <div class="slot-machine">
+                <div class="slots-container">
+                    <div class="slot-reel" id="reel1"><span>❓</span></div>
+                    <div class="slot-reel" id="reel2"><span>❓</span></div>
+                    <div class="slot-reel" id="reel3"><span>❓</span></div>
+                </div>
+                
+                <div class="prize-display">
+                    <div class="prize-title" id="prizeTitle"></div>
+                    <div class="prize-desc" id="prizeDesc"></div>
+                </div>
+
+                <button class="btn btn-spin" id="spinBtn" onclick="spinSlots()">
+                    <i class="fas fa-play"></i> Крутить!
+                </button>
+            </div>
+        </div>
+    </section>
+
     <!-- FAQ Section -->
     <section class="faq" id="faq">
         <div class="container">
@@ -821,19 +983,17 @@
                 const item = question.parentElement;
                 const isActive = item.classList.contains('active');
                 
-                // Close all items
                 document.querySelectorAll('.faq-item').forEach(faq => {
                     faq.classList.remove('active');
                 });
                 
-                // Open clicked item if it wasn't active
                 if (!isActive) {
                     item.classList.add('active');
                 }
             });
         });
 
-        // Smooth scroll for navigation links
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -847,15 +1007,125 @@
             });
         });
 
-        // Add shadow to nav on scroll
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 50) {
-                nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
-            } else {
-                nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.05)';
+        // Slot Machine Logic
+        const prizes = [
+            {
+                title: "Скидка 10% на первый месяц",
+                desc: "Промокод: LILY10",
+                emoji: "🏷️"
+            },
+            {
+                title: "Бесплатный пробный урок",
+                desc: "Уже активирован! Жду вас в Telegram",
+                emoji: "🎁"
+            },
+            {
+                title: "Полезная PDF-книга",
+                desc: "Гайд по временам английского языка",
+                emoji: "📚"
+            },
+            {
+                title: "Скидка 10% на любой курс",
+                desc: "Промокод: COURSE10",
+                emoji: "💎"
+            }
+        ];
+
+        const reel1 = document.getElementById('reel1');
+        const reel2 = document.getElementById('reel2');
+        const reel3 = document.getElementById('reel3');
+        const spinBtn = document.getElementById('spinBtn');
+        const prizeTitle = document.getElementById('prizeTitle');
+        const prizeDesc = document.getElementById('prizeDesc');
+
+        // Check if user already spun
+        window.addEventListener('load', () => {
+            const hasSpun = localStorage.getItem('hasSpun');
+            if (hasSpun) {
+                const savedPrize = JSON.parse(hasSpun);
+                showResult(savedPrize, false);
+                spinBtn.disabled = true;
+                spinBtn.innerHTML = '<i class="fas fa-check"></i> Бонус получен';
+                reel1.innerHTML = `<span>${savedPrize.emoji}</span>`;
+                reel2.innerHTML = `<span>${savedPrize.emoji}</span>`;
+                reel3.innerHTML = `<span>${savedPrize.emoji}</span>`;
             }
         });
+
+        function spinSlots() {
+            if (spinBtn.disabled) return;
+
+            // Disable button during spin
+            spinBtn.disabled = true;
+            spinBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Крутим...';
+            
+            // Clear previous result
+            prizeTitle.classList.remove('show');
+            prizeDesc.classList.remove('show');
+
+            // Add spinning animation
+            reel1.classList.add('spinning');
+            reel2.classList.add('spinning');
+            reel3.classList.add('spinning');
+
+            // Randomly select a prize (User always wins)
+            const winningPrize = prizes[Math.floor(Math.random() * prizes.length)];
+
+            // Stop reels one by one
+            setTimeout(() => {
+                reel1.classList.remove('spinning');
+                reel1.innerHTML = `<span>${winningPrize.emoji}</span>`;
+            }, 1000);
+
+            setTimeout(() => {
+                reel2.classList.remove('spinning');
+                reel2.innerHTML = `<span>${winningPrize.emoji}</span>`;
+            }, 1500);
+
+            setTimeout(() => {
+                reel3.classList.remove('spinning');
+                reel3.innerHTML = `<span>${winningPrize.emoji}</span>`;
+                
+                // Show result
+                showResult(winningPrize, true);
+                
+                // Save to localStorage
+                localStorage.setItem('hasSpun', JSON.stringify(winningPrize));
+                
+                spinBtn.innerHTML = '<i class="fas fa-check"></i> Бонус получен';
+            }, 2000);
+        }
+
+        function showResult(prize, animate) {
+            prizeTitle.textContent = prize.title;
+            prizeDesc.textContent = prize.desc;
+            
+            if (animate) {
+                prizeTitle.classList.add('show');
+                prizeDesc.classList.add('show');
+                createConfetti();
+            } else {
+                prizeTitle.style.opacity = 1;
+                prizeTitle.style.transform = 'translateY(0)';
+                prizeDesc.style.opacity = 1;
+            }
+        }
+
+        function createConfetti() {
+            const colors = ['#2563eb', '#06b6d4', '#f59e0b', '#ef4444'];
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDuration = Math.random() * 2 + 1 + 's';
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => {
+                    confetti.remove();
+                }, 3000);
+            }
+        }
     </script>
 </body>
 </html>
