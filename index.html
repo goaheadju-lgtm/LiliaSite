@@ -131,6 +131,7 @@
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
+            opacity: 0.7;
         }
 
         /* Sections */
@@ -1011,22 +1012,22 @@
         const prizes = [
             {
                 title: "Скидка 10% на первый месяц",
-                desc: "Промокод: LILY10. Жду вас в Телеграм!",
+                desc: "Промокод: LILY10. Напиши код в Телеграм!",
                 emoji: "🏷️"
             },
             {
                 title: "Бесплатный пробный урок",
-                desc: "Промокод: LESSONFREE. Жду вас в Телеграм!",
+                desc: "Промокод: FREE1. Напиши код в Телеграм!",
                 emoji: "🎁"
             },
             {
-                title: "Полезная PDF-книга по временам англ.яз.",
-                desc: "Промокод: GUIDE1. Жду вас в Телеграм!",
+                title: "PDF-книга по временам английского языка",
+                desc: "Промокод: GUIDE1. Напиши код в Телеграм!",
                 emoji: "📚"
             },
             {
                 title: "Скидка 10% на любой курс",
-                desc: "Промокод: COURSE10. Жду вас в Телеграм!",
+                desc: "Промокод: COURSE10. Напиши код в Телеграм!",
                 emoji: "💎"
             }
         ];
@@ -1038,22 +1039,33 @@
         const prizeTitle = document.getElementById('prizeTitle');
         const prizeDesc = document.getElementById('prizeDesc');
 
-        // Check if user already spun
+        // Check if user already spun on page load
         window.addEventListener('load', () => {
-            const hasSpun = localStorage.getItem('hasSpun');
-            if (hasSpun) {
-                const savedPrize = JSON.parse(hasSpun);
-                showResult(savedPrize, false);
-                spinBtn.disabled = true;
-                spinBtn.innerHTML = '<i class="fas fa-check"></i> Бонус получен';
+            const savedData = localStorage.getItem('slot_machine_spun');
+            
+            if (savedData) {
+                const savedPrize = JSON.parse(savedData);
+                showResult(savedPrize, false); // Show result without animation
+                disableSpinButton();
+                
+                // Set reels to the winning emoji
                 reel1.innerHTML = `<span>${savedPrize.emoji}</span>`;
                 reel2.innerHTML = `<span>${savedPrize.emoji}</span>`;
                 reel3.innerHTML = `<span>${savedPrize.emoji}</span>`;
             }
         });
 
+        function disableSpinButton() {
+            spinBtn.disabled = true;
+            spinBtn.innerHTML = '<i class="fas fa-check"></i> Бонус получен';
+        }
+
         function spinSlots() {
-            if (spinBtn.disabled) return;
+            // Prevent spinning if already spun (extra safety check)
+            if (localStorage.getItem('slot_machine_spun')) {
+                disableSpinButton();
+                return;
+            }
 
             // Disable button during spin
             spinBtn.disabled = true;
@@ -1089,10 +1101,10 @@
                 // Show result
                 showResult(winningPrize, true);
                 
-                // Save to localStorage
-                localStorage.setItem('hasSpun', JSON.stringify(winningPrize));
+                // Save to localStorage immediately so refresh won't reset it
+                localStorage.setItem('slot_machine_spun', JSON.stringify(winningPrize));
                 
-                spinBtn.innerHTML = '<i class="fas fa-check"></i> Бонус получен';
+                disableSpinButton();
             }, 2000);
         }
 
@@ -1105,9 +1117,11 @@
                 prizeDesc.classList.add('show');
                 createConfetti();
             } else {
+                // If loading from storage, show immediately
                 prizeTitle.style.opacity = 1;
                 prizeTitle.style.transform = 'translateY(0)';
                 prizeDesc.style.opacity = 1;
+                prizeDesc.style.transform = 'translateY(0)';
             }
         }
 
